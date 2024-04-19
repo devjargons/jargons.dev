@@ -3,12 +3,14 @@ import BaseLayout from "./base.astro";
 import Navbar from "../components/navbar.astro";
 import Search from "../components/islands/search.jsx";
 
-const { frontmatter } = Astro.props;
+const { props: { frontmatter }, url } = Astro;
+
 const dictionary = await Astro.glob("../pages/browse/*.mdx");
 const editUrl = `/editor/edit/${frontmatter.url.split("/")[2]}`;
+const ogImageUrl = `${url.origin}/open-graph/${frontmatter.url.split("/")[2]}.png`;
 ---
 
-<BaseLayout pageTitle={ frontmatter.title }>
+<BaseLayout pageTitle={frontmatter.title} ogImageUrl={ogImageUrl}>
   <Navbar>
     <Search triggerSize="sm" dictionary={dictionary} client:load />
   </Navbar>
